@@ -72,7 +72,7 @@ public class Listeners implements Listener, CommandExecutor {
 	
 	void setInv(Player p) {
 		for(int i=0; i < 41 ; i++) {
-			plugin.getDConfig().set("StuffDeath." + p.getUniqueId().toString() +".Stuff" + i, p.getInventory().getItem(i));
+			plugin.getDConfig().set("StuffDeath." + p.getUniqueId().toString() +".Slot" + i, p.getInventory().getItem(i));
 			try {
 				
 				plugin.getDConfig().save(plugin.dFile);
@@ -86,13 +86,19 @@ public class Listeners implements Listener, CommandExecutor {
 	
 	void getInv(Player p, Player player) {
 		
-		for(int i = 0 ; i < 41 ; i++) {
-			ItemStack it = plugin.getDConfig().getItemStack("StuffDeath." + player.getUniqueId().toString() + ".Stuff" + i);
-			player.getInventory().setItem(i, it);
-		}
+		boolean isdead = plugin.getDConfig().isSet("StuffDeath." + player.getUniqueId());
 		
-		p.sendMessage(prefixStuff + ChatColor.AQUA + "Le stuff de " + ChatColor.RED + player.getName() + ChatColor.AQUA + " a bien été redonné !");
-		player.sendMessage(prefixStuff + ChatColor.AQUA + "Votre stuff a bien été redonné par " + ChatColor.RED + p.getName() + ChatColor.AQUA + " !");
+		if(isdead) {
+		
+			for(int i = 0 ; i < 41 ; i++) {
+				ItemStack it = plugin.getDConfig().getItemStack("StuffDeath." + player.getUniqueId().toString() + ".Slot" + i);
+				player.getInventory().setItem(i, it);
+			}
+			
+			p.sendMessage(prefixStuff + ChatColor.AQUA + "Le stuff de " + ChatColor.RED + player.getName() + ChatColor.AQUA + " a bien été redonné !");
+			player.sendMessage(prefixStuff + ChatColor.AQUA + "Votre stuff a bien été redonné par " + ChatColor.RED + p.getName() + ChatColor.AQUA + " !");
+		}else
+			p.sendMessage(prefixErreur + ChatColor.RED + "Le joueur " + ChatColor.AQUA + player.getName() + ChatColor.RED +" n'est pas encore mort ou n'avait pas de stuff quand il est mort, donc son stuff n'a pas été redonnée !");
 		
 	}
 

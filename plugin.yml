@@ -1,5 +1,5 @@
 name: KeepStuff
-version: 1.0.0
+version: 1.0.1
 author: raph
 main: fr.raph.stuff.main.Main
 api-version: 1.13
