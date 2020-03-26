@@ -1,0 +1,17 @@
+name: KeepStuff
+version: 1.0.0
+author: raph
+main: fr.raph.stuff.main.Main
+api-version: 1.13
+commands:
+  giveStuff:
+    description: get ur stuff if ur dead
+permissions:
+  stuff.*:
+    description: Permettre au joueur toutes les commandes
+    default: op
+    children:
+      stuff.giveStuff: true
+  stuff.giveStuff:
+    description: Permettre au joueur la commande /giveStuff
+    default: false
